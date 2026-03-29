@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LZ Security | Cybersecurity Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+--navy: #0a1628;
+--navy-mid: #122040;
+--navy-light: #1a3060;
+--gold: #c9a84c;
+--gold-light: #e8c96a;
+--gold-pale: #f5e6b8;
+--white: #ffffff;
+--off-white: #f7f4ee;
+--text-muted: #8a99b3;
+--border: rgba(201,168,76,0.2);
+}
+
+- { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–navy);
+color: var(–white);
+overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+position: fixed; top:0; width:100%; z-index:100;
+display:flex; justify-content:space-between; align-items:center;
+padding: 1.2rem 4rem;
+background: rgba(10,22,40,0.92);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid var(–border);
+}
+.nav-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 1.6rem; font-weight:700;
+color: var(–gold);
+letter-spacing: 0.05em;
+}
+.nav-logo span { color: var(–white); }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a {
+color: var(–text-muted);
+text-decoration:none; font-size:0.85rem;
+font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+transition: color 0.3s;
+}
+.nav-links a:hover { color: var(–gold); }
+
+/* ── HERO ── */
+#hero {
+min-height:100vh;
+display:flex; align-items:center;
+position:relative; overflow:hidden;
+padding: 0 4rem;
+}
+.hero-grid-bg {
+position:absolute; inset:0; opacity:0.06;
+background-image:
+linear-gradient(var(–gold) 1px, transparent 1px),
+linear-gradient(90deg, var(–gold) 1px, transparent 1px);
+background-size: 60px 60px;
+}
+.hero-glow {
+position:absolute; top:-20%; right:-10%;
+width:700px; height:700px; border-radius:50%;
+background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+pointer-events:none;
+}
+.hero-content { position:relative; max-width:750px; }
+.hero-eyebrow {
+font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase;
+color: var(–gold); font-weight:600; margin-bottom:1.2rem;
+display:flex; align-items:center; gap:0.8rem;
+}
+.hero-eyebrow::before {
+content:’’; display:block; width:32px; height:1px; background:var(–gold);
+}
+h1 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(3rem, 6vw, 5.5rem);
+font-weight:700; line-height:1.05;
+margin-bottom:1.5rem;
+}
+h1 em { color: var(–gold); font-style:normal; }
+.hero-sub {
+font-size:1.05rem; color: var(–text-muted);
+line-height:1.8; max-width:520px; margin-bottom:2.5rem;
+}
+.btn-primary {
+display:inline-block; padding:0.85rem 2.2rem;
+background: var(–gold); color: var(–navy);
+font-weight:600; font-size:0.85rem; letter-spacing:0.08em;
+text-transform:uppercase; text-decoration:none;
+transition: background 0.3s, transform 0.2s;
+cursor:pointer; border:none;
+}
+.btn-primary:hover { background: var(–gold-light); transform:translateY(-2px); }
+.btn-outline {
+display:inline-block; padding:0.85rem 2.2rem;
+border:1px solid var(–gold); color: var(–gold);
+font-weight:600; font-size:0.85rem; letter-spacing:0.08em;
+text-transform:uppercase; text-decoration:none;
+transition: all 0.3s; margin-left:1rem; cursor:pointer; background:none;
+}
+.btn-outline:hover { background: var(–gold); color: var(–navy); }
+
+/* ── SECTION BASE ── */
+section { padding: 6rem 4rem; }
+.section-label {
+font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
+color: var(–gold); font-weight:600; margin-bottom:0.8rem;
+display:flex; align-items:center; gap:0.6rem;
+}
+.section-label::before { content:’’; display:block; width:24px; height:1px; background:var(–gold); }
+h2 {
+font-family:‘Cormorant Garamond’, serif;
+font-size: clamp(2.2rem, 4vw, 3.2rem);
+font-weight:700; line-height:1.15; margin-bottom:1rem;
+}
+h2 em { color:var(–gold); font-style:normal; }
+
+/* ── SERVICES ── */
+#services { background: var(–navy-mid); }
+.services-intro { color:var(–text-muted); max-width:540px; line-height:1.8; margin-bottom:3.5rem; }
+.services-grid {
+display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:1.5px;
+border:1px solid var(–border);
+}
+.service-card {
+padding:2.2rem; background:var(–navy);
+border:1px solid var(–border);
+transition: background 0.3s;
+position:relative; overflow:hidden;
+}
+.service-card::before {
+content:’’; position:absolute; top:0; left:0;
+width:3px; height:100%; background:var(–gold);
+transform:scaleY(0); transform-origin:bottom;
+transition:transform 0.35s ease;
+}
+.service-card:hover::before { transform:scaleY(1); }
+.service-card:hover { background:var(–navy-light); }
+.service-icon { font-size:1.8rem; margin-bottom:1rem; }
+.service-card h3 {
+font-family:‘Cormorant Garamond’, serif;
+font-size:1.3rem; font-weight:700; margin-bottom:0.6rem; color:var(–white);
+}
+.service-card p { font-size:0.88rem; color:var(–text-muted); line-height:1.75; }
+
+/* ── SHIELDAI ── */
+#shieldai { background:var(–navy); position:relative; overflow:hidden; }
+.shieldai-inner {
+display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;
+}
+.shieldai-badge {
+display:inline-flex; align-items:center; gap:0.5rem;
+background:rgba(201,168,76,0.1); border:1px solid var(–border);
+padding:0.4rem 1rem; font-size:0.72rem; letter-spacing:0.15em;
+text-transform:uppercase; color:var(–gold); margin-bottom:1.5rem;
+}
+.shieldai-badge::before { content:‘⬡’; font-size:0.9rem; }
+.shieldai-features { list-style:none; margin-top:1.5rem; }
+.shieldai-features li {
+display:flex; align-items:flex-start; gap:0.8rem;
+padding:0.7rem 0; border-bottom:1px solid var(–border);
+font-size:0.9rem; color:var(–text-muted); line-height:1.6;
+}
+.shieldai-features li::before {
+content:‘▸’; color:var(–gold); flex-shrink:0; margin-top:2px;
+}
+/* AI Chat Demo */
+.chat-demo {
+background:var(–navy-mid); border:1px solid var(–border);
+border-radius:4px; overflow:hidden;
+}
+.chat-header {
+background:var(–navy-light); padding:0.9rem 1.2rem;
+display:flex; align-items:center; gap:0.6rem;
+font-size:0.78rem; font-weight:600; letter-spacing:0.08em;
+text-transform:uppercase; color:var(–gold); border-bottom:1px solid var(–border);
+}
+.chat-header::before { content:‘⬡’; }
+.chat-messages {
+padding:1.2rem; display:flex; flex-direction:column;
+gap:0.8rem; min-height:260px; max-height:320px; overflow-y:auto;
+}
+.chat-messages::-webkit-scrollbar { width:4px; }
+.chat-messages::-webkit-scrollbar-thumb { background:var(–border); }
+.msg { max-width:85%; font-size:0.84rem; line-height:1.65; padding:0.75rem 1rem; }
+.msg-ai {
+background:rgba(201,168,76,0.08); border:1px solid var(–border);
+border-radius:0 8px 8px 8px; color:var(–off-white); align-self:flex-start;
+}
+.msg-user {
+background:var(–navy-light); border:1px solid rgba(255,255,255,0.08);
+border-radius:8px 0 8px 8px; color:var(–white); align-self:flex-end;
+}
+.msg-label { font-size:0.65rem; font-weight:600; letter-spacing:0.1em;
+text-transform:uppercase; opacity:0.5; margin-bottom:0.3rem; }
+.chat-input-row {
+display:flex; border-top:1px solid var(–border);
+}
+.chat-input-row input {
+flex:1; background:transparent; border:none; outline:none;
+padding:0.9rem 1rem; font-size:0.85rem; color:var(–white);
+font-family:‘DM Sans’, sans-serif;
+}
+.chat-input-row input::placeholder { color:var(–text-muted); }
+.chat-send {
+padding:0 1.2rem; background:var(–gold); border:none; cursor:pointer;
+color:var(–navy); font-weight:700; font-size:0.85rem;
+transition:background 0.2s;
+}
+.chat-send:hover { background:var(–gold-light); }
+.typing { display:none; align-items:center; gap:4px; padding:0.75rem 1rem;
+background:rgba(201,168,76,0.08); border:1px solid var(–border);
+border-radius:0 8px 8px 8px; width:fit-content; }
+.typing span {
+width:6px; height:6px; border-radius:50%; background:var(–gold);
+animation:bounce 1.2s infinite;
+}
+.typing span:nth-child(2) { animation-delay:0.2s; }
+.typing span:nth-child(3) { animation-delay:0.4s; }
+@keyframes bounce {
+0%,80%,100% { transform:translateY(0); opacity:0.4; }
+40% { transform:translateY(-6px); opacity:1; }
+}
+
+/* ── ABOUT ── */
+#about { background:var(–navy-mid); }
+.about-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; }
+.about-text p { color:var(–text-muted); line-height:1.9; margin-bottom:1rem; font-size:0.95rem; }
+.credentials { margin-top:2rem; }
+.cred-item {
+display:flex; align-items:center; gap:1rem;
+padding:0.9rem 0; border-bottom:1px solid var(–border);
+font-size:0.88rem; color:var(–text-muted);
+}
+.cred-dot { width:8px; height:8px; background:var(–gold); flex-shrink:0; }
+.about-stats { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+.stat-card {
+padding:2rem; border:1px solid var(–border);
+text-align:center; background:var(–navy);
+}
+.stat-num {
+font-family:‘Cormorant Garamond’, serif;
+font-size:3rem; font-weight:700; color:var(–gold); line-height:1;
+margin-bottom:0.4rem;
+}
+.stat-label { font-size:0.78rem; color:var(–text-muted); letter-spacing:0.08em;
+text-transform:uppercase; }
+
+/* ── CONTACT ── */
+#contact { background:var(–navy); }
+.contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; }
+.contact-info p { color:var(–text-muted); line-height:1.8; margin-bottom:2rem; }
+.contact-detail {
+display:flex; align-items:center; gap:0.9rem;
+padding:0.8rem 0; border-bottom:1px solid var(–border);
+font-size:0.88rem; color:var(–text-muted);
+}
+.contact-detail strong { color:var(–gold); font-size:0.72rem; letter-spacing:0.1em;
+text-transform:uppercase; min-width:70px; }
+.contact-form { display:flex; flex-direction:column; gap:1rem; }
+.contact-form input,
+.contact-form textarea {
+background:var(–navy-mid); border:1px solid var(–border);
+padding:0.85rem 1rem; color:var(–white); font-family:‘DM Sans’,sans-serif;
+font-size:0.88rem; outline:none; resize:none;
+transition:border-color 0.3s;
+}
+.contact-form input:focus,
+.contact-form textarea:focus { border-color:var(–gold); }
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color:var(–text-muted); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.form-success {
+display:none; padding:1rem; background:rgba(201,168,76,0.1);
+border:1px solid var(–gold); color:var(–gold);
+font-size:0.88rem; text-align:center;
+}
+
+/* ── FOOTER ── */
+footer {
+padding:2rem 4rem; background:var(–navy-mid);
+border-top:1px solid var(–border);
+display:flex; justify-content:space-between; align-items:center;
+}
+.footer-logo { font-family:‘Cormorant Garamond’,serif; font-size:1.2rem; color:var(–gold); }
+footer p { font-size:0.78rem; color:var(–text-muted); }
+
+/* ── ANIMATIONS ── */
+.fade-up {
+opacity:0; transform:translateY(30px);
+transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width:768px) {
+nav { padding:1rem 1.5rem; }
+.nav-links { display:none; }
+section { padding:4rem 1.5rem; }
+#hero { padding:0 1.5rem; }
+.shieldai-inner, .about-inner, .contact-inner { grid-template-columns:1fr; gap:2.5rem; }
+.about-stats { grid-template-columns:1fr 1fr; }
+footer { flex-direction:column; gap:0.5rem; text-align:center; padding:1.5rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+<div class="nav-logo">LZ<span> Security</span></div>
+<ul class="nav-links">
+<li><a href="#services">Services</a></li>
+<li><a href="#shieldai">ShieldAI</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+<!-- HERO -->
+
+<section id="hero">
+<div class="hero-grid-bg"></div>
+<div class="hero-glow"></div>
+<div class="hero-content">
+<div class="hero-eyebrow">Cybersecurity Consulting</div>
+<h1>Protect What<br/>You've <em>Built.</em></h1>
+<p class="hero-sub">LZ Security delivers enterprise-grade cybersecurity consulting for businesses ready to take their security posture seriously — powered by expertise, driven by results.</p>
+<a href="#contact" class="btn-primary">Get a Consultation</a>
+<a href="#services" class="btn-outline">Our Services</a>
+</div>
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+<div class="fade-up">
+<div class="section-label">What We Do</div>
+<h2>Security <em>Solutions</em></h2>
+<p class="services-intro">From risk assessments to compliance consulting, we provide tailored security strategies that protect your business and keep you ahead of evolving threats.</p>
+</div>
+<div class="services-grid fade-up">
+<div class="service-card">
+<div class="service-icon">🔍</div>
+<h3>Security Audits</h3>
+<p>Comprehensive assessment of your systems, networks, and processes to identify vulnerabilities before attackers do.</p>
+</div>
+<div class="service-card">
+<div class="service-icon">📋</div>
+<h3>Compliance Consulting</h3>
+<p>Navigate HIPAA, SOC 2, NIST, and more. We help you build a compliance framework that fits your business.</p>
+</div>
+<div class="service-card">
+<div class="service-icon">🛡️</div>
+<h3>Security Awareness Training</h3>
+<p>Your people are your first line of defense. We train teams to recognize and respond to modern threats.</p>
+</div>
+<div class="service-card">
+<div class="service-icon">⚡</div>
+<h3>Incident Response</h3>
+<p>When breaches happen, response time matters. We help you contain, assess, and recover with minimal impact.</p>
+</div>
+<div class="service-card">
+<div class="service-icon">🌐</div>
+<h3>Network Security</h3>
+<p>Architecture review, firewall configuration, and network hardening using industry-standard tools and frameworks.</p>
+</div>
+<div class="service-card">
+<div class="service-icon">🤖</div>
+<h3>AI-Powered Risk Analysis</h3>
+<p>Leveraging ShieldAI to deliver intelligent threat detection and real-time risk intelligence for modern businesses.</p>
+</div>
+</div>
+</section>
+
+<!-- SHIELDAI -->
+
+<section id="shieldai">
+<div class="shieldai-inner">
+<div class="fade-up">
+<div class="shieldai-badge">Flagship Product</div>
+<div class="section-label">Innovation</div>
+<h2>Meet <em>ShieldAI</em></h2>
+<p style="color:var(--text-muted); line-height:1.85; font-size:0.95rem; margin-bottom:1rem;">
+ShieldAI is LZ Security's AI-powered security intelligence platform — built to analyze threats, surface risks, and deliver actionable insights in real time.
+</p>
+<ul class="shieldai-features">
+<li>Real-time threat detection and anomaly identification</li>
+<li>Automated vulnerability scanning and risk scoring</li>
+<li>Natural language security Q&A for non-technical teams</li>
+<li>Continuous compliance monitoring across frameworks</li>
+<li>Intelligent incident triage and response guidance</li>
+</ul>
+</div>
+<!-- Live AI Chat Demo -->
+<div class="fade-up">
+<div style="margin-bottom:0.8rem; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold);">⬡ Live Demo — Ask ShieldAI</div>
+<div class="chat-demo">
+<div class="chat-header">ShieldAI Security Advisor</div>
+<div class="chat-messages" id="chatMessages">
+<div class="msg msg-ai">
+<div class="msg-label">ShieldAI</div>
+Hello! I'm ShieldAI, your cybersecurity advisor. Ask me anything — threat analysis, compliance questions, security best practices, or how to protect your business.
+</div>
+</div>
+<div class="chat-input-row">
+<input type="text" id="chatInput" placeholder="Ask a security question..." />
+<button class="chat-send" onclick="sendMessage()">Send</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+<div class="about-inner">
+<div class="about-text fade-up">
+<div class="section-label">About</div>
+<h2>Security Expertise<br/><em>Built Different</em></h2>
+<p>LZ Security was founded by Lyric West — a cybersecurity professional with a B.S. in Cybersecurity from Kennesaw State University and hands-on experience in IT support, risk management, and incident response.</p>
+<p>What sets LZ Security apart is the intersection of technical depth and real-world adaptability. We don't just run audits — we build security cultures that stick.</p>
+<div class="credentials">
+<div class="cred-item"><div class="cred-dot"></div>B.S. Cybersecurity — Kennesaw State University, Cum Laude (3.7 GPA)</div>
+<div class="cred-item"><div class="cred-dot"></div>CompTIA Security+ (In Progress)</div>
+<div class="cred-item"><div class="cred-dot"></div>IT Support — KSU, Network & Systems Administration</div>
+<div class="cred-item"><div class="cred-dot"></div>Incident Response Planning — Cyber Tree Systems</div>
+<div class="cred-item"><div class="cred-dot"></div>Tools: Wireshark, Kali Linux, SIEM, Cisco, Windows/Linux</div>
+</div>
+</div>
+<div class="about-stats fade-up">
+<div class="stat-card">
+<div class="stat-num">6+</div>
+<div class="stat-label">Security Domains</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">3.7</div>
+<div class="stat-label">GPA Cum Laude</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">AI</div>
+<div class="stat-label">Powered Platform</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">ATL</div>
+<div class="stat-label">Based & Remote</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+<div class="contact-inner">
+<div class="fade-up">
+<div class="section-label">Get In Touch</div>
+<h2>Let's Secure<br/><em>Your Business</em></h2>
+<p>Ready to strengthen your security posture? Whether you need a quick audit or a full consulting engagement, we're ready to help.</p>
+<div class="contact-detail"><strong>Email</strong> lyricwest0@gmail.com</div>
+<div class="contact-detail"><strong>Location</strong> Atlanta, Georgia (Remote Available)</div>
+<div class="contact-detail"><strong>Company</strong> LZ Security | ShieldAI</div>
+</div>
+<div class="fade-up">
+<form class="contact-form" onsubmit="submitForm(event)">
+<div class="form-row">
+<input type="text" placeholder="Your Name" required />
+<input type="email" placeholder="Email Address" required />
+</div>
+<input type="text" placeholder="Company / Organization" />
+<input type="text" placeholder="Service You're Interested In" />
+<textarea rows="5" placeholder="Tell us about your security needs..."></textarea>
+<button type="submit" class="btn-primary" style="text-align:center;">Send Message</button>
+<div class="form-success" id="formSuccess">✓ Message received. We'll be in touch within 24 hours.</div>
+</form>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+<div class="footer-logo">LZ Security</div>
+<p>© 2025 LZ Security. Atlanta, Georgia. All rights reserved.</p>
+<p style="color:var(--gold); font-size:0.78rem;">Powered by ShieldAI ⬡</p>
+</footer>
+
+<script>
+// ── Scroll Animations ──
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── Contact Form ──
+function submitForm(e) {
+e.preventDefault();
+document.getElementById('formSuccess').style.display = 'block';
+e.target.reset();
+setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 5000);
+}
+
+// ── ShieldAI Chat ──
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(); });
+
+function addMessage(text, isUser) {
+const div = document.createElement('div');
+div.className = `msg ${isUser ? 'msg-user' : 'msg-ai'}`;
+div.innerHTML = `<div class="msg-label">${isUser ? 'You' : 'ShieldAI'}</div>${text}`;
+chatMessages.appendChild(div);
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping() {
+const t = document.createElement('div');
+t.className = 'typing'; t.id = 'typing';
+t.innerHTML = '<span></span><span></span><span></span>';
+t.style.display = 'flex';
+chatMessages.appendChild(t);
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function removeTyping() {
+const t = document.getElementById('typing');
+if (t) t.remove();
+}
+
+async function sendMessage() {
+const text = chatInput.value.trim();
+if (!text) return;
+chatInput.value = '';
+addMessage(text, true);
+showTyping();
+
+try {
+const res = await fetch('https://api.anthropic.com/v1/messages', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+model: 'claude-sonnet-4-20250514',
+max_tokens: 1000,
+system: `You are ShieldAI, the intelligent cybersecurity advisor for LZ Security — a cybersecurity consulting firm founded by Lyric West, based in Atlanta, GA. You help users with cybersecurity questions, threat analysis, compliance guidance, security best practices, and general infosec education. Keep responses concise, clear, and actionable. Use plain language but demonstrate expertise. Never provide harmful or malicious security guidance. If asked about LZ Security services, mention: Security Audits, Compliance Consulting, Security Awareness Training, Incident Response, Network Security, and AI-Powered Risk Analysis via ShieldAI.`,
+messages: [{ role: 'user', content: text }]
+})
+});
+const data = await res.json();
+removeTyping();
+const reply = data.content?.find(b => b.type === 'text')?.text || "I'm having trouble connecting right now. Please try again.";
+addMessage(reply, false);
+} catch {
+removeTyping();
+addMessage("Connection error. Please check your network and try again.", false);
+}
+}
+</script>
+
+</body>
+</html>
